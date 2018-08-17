@@ -44,7 +44,8 @@ namespace dotnetcore.Controllers
 			_context.Livros.Add(item);
 			_context.SaveChanges();
 
-			return CreatedAtRoute("GetLivro", new { id = item.Id }, item);
+			var retorno = new { Mensagem = "Livro cadastrado com sucesso!" };
+            return new OkObjectResult(retorno);
 		}
 
 		[HttpPut("{id}")]
@@ -65,8 +66,8 @@ namespace dotnetcore.Controllers
 			std.Edicao = item.Edicao;
 			_context.Livros.Update(std);
 			_context.SaveChanges();
-			var retorno = new {Mensagem = "OK"};
-			return new OkObjectResult(retorno);
+			var retorno = new { Mensagem = "Livro atualizado com sucesso!" };
+            return new OkObjectResult(retorno);
 		}
 
 		[HttpDelete("{id}")]
@@ -77,7 +78,8 @@ namespace dotnetcore.Controllers
 			}
 			_context.Livros.Remove(todo);
 			_context.SaveChanges();
-			return new NoContentResult();
+			var retorno = new { Mensagem = "Livro deletado com sucesso!" };
+            return new OkObjectResult(retorno);
 		}
 
 

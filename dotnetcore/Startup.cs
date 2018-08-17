@@ -30,6 +30,13 @@ namespace dotnetcore
 			services.AddEntityFrameworkInMemoryDatabase().AddDbContext<LivrosServiceContext>(opt =>
 																							 opt.UseInMemoryDatabase("LivrosDB"));
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddCors(o => o.AddPolicy("CorsAllow", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +51,7 @@ namespace dotnetcore
                 app.UseHsts();
             }
 
+			app.UseCors("CorsAllow");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
